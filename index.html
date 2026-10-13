@@ -1,28 +1,551 @@
+
+
+Index · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Raden Gerald R. Agustin | Business Card</title>
-  <meta property="og:title" content="Your Name | Your Title">
-  <meta property="og:description" content="Let's connect.">
+  <title>Your Name</title>
+  <meta name="description" content="Academic profile, publications, and contact details.">
+  <!-- Link preview when shared: edit these two lines -->
+  <meta property="og:title" content="Your Name | PhD Candidate">
+  <meta property="og:description" content="Academic profile and publications.">
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+ 
   <style>
-    body { font-family: system-ui, sans-serif; background: #f2f4f7; display: grid; place-items: center; min-height: 100vh; margin: 0; }
-    .card { background: #fff; padding: 2rem; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,.1); max-width: 340px; width: 90%; text-align: center; }
-    h1 { margin: 0 0 .25rem; }
-    p { color: #555; margin: 0 0 1.5rem; }
-    a { display: block; padding: .7rem; margin: .5rem 0; border-radius: 8px; background: #111; color: #fff; text-decoration: none; }
-    a:hover { background: #333; }
+    :root {
+      --paper: #eef1f6;
+      --surface: #ffffff;
+      --ink: #1b2340;
+      --muted: #566082;
+      --line: #d5dbe8;
+      --cobalt: #2f4bff;
+      --on-cobalt: #ffffff;
+      --sun: #ffc93c;
+      --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+      --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --paper: #0f1424;
+        --surface: #171d33;
+        --ink: #e9ecf6;
+        --muted: #9aa3c4;
+        --line: #2a3250;
+        --cobalt: #4a63ff;
+      }
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; border-radius: 4px; }
+ 
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: clamp(1.25rem, 4vw, 3.5rem);
+      display: grid;
+      gap: clamp(2rem, 5vw, 4rem);
+    }
+    @media (min-width: 900px) {
+      .page { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; }
+    }
+ 
+    /* ---------- The card ---------- */
+    .card {
+      aspect-ratio: 7 / 4;
+      width: 100%;
+      max-width: 520px;
+      background: var(--cobalt);
+      color: var(--on-cobalt);
+      border-radius: 14px;
+      padding: clamp(1.1rem, 3vw, 1.75rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 18px 40px -18px rgba(27, 35, 64, .55);
+      transform-origin: 20% 100%;
+      animation: settle .9s cubic-bezier(.2, .8, .2, 1) both;
+    }
+    @keyframes settle {
+      from { transform: rotate(-5deg) translateY(14px); opacity: 0; }
+      to   { transform: none; opacity: 1; }
+    }
+    .card h1 {
+      margin: 0;
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(2rem, 6.4vw, 3.1rem);
+      line-height: .95;
+      letter-spacing: -.03em;
+    }
+    .card .role { margin: .6rem 0 0; font-size: 1rem; font-weight: 500; opacity: .92; }
+    .card .org::before {
+      content: "";
+      display: inline-block;
+      width: .6em; height: .6em;
+      background: var(--sun);
+      border-radius: 50%;
+      margin-right: .5em;
+    }
+    .card .contact { list-style: none; margin: 0; padding: 0; font-size: .92rem; display: grid; gap: .1rem; }
+    .card .contact a { text-decoration: none; }
+    .card .contact a:hover { text-decoration: underline; text-decoration-color: var(--sun); text-underline-offset: 4px; text-decoration-thickness: 2px; }
+ 
+    .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.25rem; }
+    .btn {
+      font: 600 .95rem var(--body);
+      color: var(--ink);
+      background: var(--surface);
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      padding: .6rem 1.1rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .15s, color .15s;
+    }
+    .btn:hover { background: var(--ink); color: var(--paper); }
+    .btn.primary { background: var(--sun); border-color: var(--sun); color: #1b2340; }
+    .btn.primary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+ 
+    .bio { max-width: 46ch; margin: 1.5rem 0 0; color: var(--muted); }
+ 
+    /* ---------- Left column sections ---------- */
+    .block { margin-top: 2rem; }
+    .block[hidden] { display: none; }
+    h2 {
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      letter-spacing: -.02em;
+      line-height: 1.05;
+      margin: 0 0 1rem;
+    }
+    h2.small { font-size: 1.2rem; margin-bottom: .7rem; }
+ 
+    .tags { display: flex; flex-wrap: wrap; gap: .35rem; list-style: none; padding: 0; margin: 0; }
+    .tags li { font-size: .85rem; color: var(--ink); background: var(--line); border-radius: 4px; padding: .1rem .6rem; }
+ 
+    .edu { list-style: none; margin: 0; padding: 0; display: grid; gap: .9rem; }
+    .edu .deg { font-weight: 600; }
+    .edu .meta { color: var(--muted); font-size: .92rem; }
+ 
+    .links { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; list-style: none; padding: 0; margin: 0; }
+    .links a { font-weight: 600; text-underline-offset: 4px; text-decoration-color: var(--line); text-decoration-thickness: 2px; }
+    .links a:hover { text-decoration-color: var(--sun); }
+ 
+    /* ---------- Publications ---------- */
+    .filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+    .chip {
+      font: 500 .875rem var(--body);
+      color: var(--ink);
+      background: transparent;
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: .3rem .85rem;
+      cursor: pointer;
+    }
+    .chip:hover { border-color: var(--ink); }
+    .chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+ 
+    .pub-list { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
+    .pub-list > li { border-bottom: 1px solid var(--line); }
+    .pub {
+      display: grid;
+      grid-template-columns: 3.5rem minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1.2rem 0;
+    }
+    .pub .year { color: var(--muted); font-variant-numeric: tabular-nums; padding-top: .2rem; }
+    .pub h3 {
+      margin: 0;
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 1.25rem;
+      line-height: 1.25;
+    }
+    .pub h3 a { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 3px; text-underline-offset: 5px; transition: text-decoration-color .15s; }
+    .pub h3 a:hover { text-decoration-color: var(--sun); }
+    .pub .authors { margin: .35rem 0 0; color: var(--muted); max-width: 60ch; }
+    .pub .authors strong { color: var(--ink); font-weight: 600; }
+    .pub .venue { margin: .1rem 0 0; font-style: italic; color: var(--muted); }
+    .pub .abstract { margin: .5rem 0 0; max-width: 60ch; }
+    .pub .meta { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .9rem; margin-top: .7rem; }
+    .pub .type { font-size: .8rem; color: var(--ink); background: var(--line); border-radius: 4px; padding: .05rem .5rem; }
+    .pub .meta a, .pub .meta button {
+      font: 600 .875rem var(--body);
+      color: var(--ink);
+      background: none; border: 0; padding: 0; cursor: pointer;
+      text-underline-offset: 4px; text-decoration-color: var(--line); text-decoration-thickness: 2px;
+    }
+    .pub .meta button { text-decoration: underline; }
+    .pub .meta a:hover, .pub .meta button:hover { text-decoration-color: var(--sun); }
+    .empty { color: var(--muted); padding: 1.2rem 0; }
+    @media (max-width: 520px) { .pub { grid-template-columns: 1fr; gap: .3rem; } }
+ 
+    /* ---------- Advisors and co-authors ---------- */
+    .people { margin-top: 3rem; }
+    .people ul { list-style: none; padding: 0; margin: 0; border-top: 1.5px solid var(--ink); }
+    .people li { display: flex; justify-content: space-between; gap: 1rem; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+    .people .who { font-weight: 600; text-underline-offset: 4px; text-decoration-color: var(--line); text-decoration-thickness: 2px; }
+    .people a.who:hover { text-decoration-color: var(--sun); }
+    .people .what { color: var(--muted); text-align: right; }
+ 
+    footer { grid-column: 1 / -1; color: var(--muted); font-size: .875rem; }
+ 
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .card { animation: none; }
+      * { transition: none !important; }
+    }
+ 
+    /* Printing: clean one-column sheet, no buttons */
+    @media print {
+      body { background: #fff; color: #000; }
+      .page { display: block; padding: 0; }
+      .actions, .filters, .pub .meta button { display: none !important; }
+      .card { box-shadow: none; animation: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .pub, .edu li { break-inside: avoid; }
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Raden Gerald R. Agustin</h1>
-    <p>Assistant Professor, Statistics · University of the Philippines Cebu</p>
-    <a href="mailto:you@example.com">Email me</a>
-    <a href="tel:+639000000000">Call me</a>
-    <a href="https://linkedin.com/in/yourname">LinkedIn</a>
-    <a href="https://github.com/yourusername">GitHub</a>
-  </div>
+  <main class="page">
+    <section class="identity" aria-label="Academic profile">
+      <div class="card">
+        <div>
+          <h1 id="name"></h1>
+          <p class="role" id="role"></p>
+        </div>
+        <ul class="contact" id="contact"></ul>
+      </div>
+ 
+      <div class="actions">
+        <a class="btn primary" id="cvLink" href="#" download hidden>Download CV</a>
+        <button class="btn" id="saveContact" type="button">Save contact</button>
+        <button class="btn" id="copyLink" type="button">Copy link</button>
+      </div>
+ 
+      <p class="bio" id="bio"></p>
+ 
+      <div class="block" id="interestsWrap" hidden>
+        <h2 class="small">Research interests</h2>
+        <ul class="tags" id="interests"></ul>
+      </div>
+ 
+      <div class="block" id="eduWrap" hidden>
+        <h2 class="small">Education</h2>
+        <ul class="edu" id="edu"></ul>
+      </div>
+ 
+      <div class="block" id="linksWrap" hidden>
+        <h2 class="small">Find me</h2>
+        <ul class="links" id="links"></ul>
+      </div>
+    </section>
+ 
+    <section aria-labelledby="pub-title">
+      <h2 id="pub-title">Publications</h2>
+      <div class="filters" id="filters" role="group" aria-label="Filter publications by type"></div>
+      <ul class="pub-list" id="pubs"></ul>
+ 
+      <div class="people" id="peopleWrap" hidden>
+        <h2>Advisors and co-authors</h2>
+        <ul id="people"></ul>
+      </div>
+    </section>
+ 
+    <footer id="footer"></footer>
+  </main>
+ 
+  <script>
+    /* =====================================================
+       EDIT THIS BLOCK ONLY. Everything on the page is built
+       from it. Delete any line or item you don't need.
+       ===================================================== */
+    const CARD = {
+      name: "Your Name",
+      title: "PhD Candidate, Computer Science",
+      org: "Your University",
+      email: "you@university.edu",
+      phone: "",                       // leave "" to hide
+      website: "https://yourusername.github.io",
+      bio: "Two or three sentences on your research focus, your methods, and what you are working on now.",
+ 
+      cv: "cv.pdf",                    // upload your CV to the repo; "" hides the button
+ 
+      interests: [
+        "Natural language processing",
+        "Human-computer interaction",
+        "Low-resource languages"
+      ],
+ 
+      education: [
+        { degree: "PhD, Computer Science", school: "Your University", years: "2024 to present", note: "Advisor: Dr. Advisor Name" },
+        { degree: "BS, Information Technology", school: "Your First University", years: "2018 to 2022", note: "Thesis: Title of your thesis" }
+      ],
+ 
+      links: [
+        { label: "ORCID",          url: "https://orcid.org/0000-0000-0000-0000" },
+        { label: "Google Scholar", url: "https://scholar.google.com/" },
+        { label: "ResearchGate",   url: "https://www.researchgate.net/" },
+        { label: "GitHub",         url: "https://github.com/yourusername" }
+      ],
+ 
+      // type is used for the filter buttons (Journal, Conference, Preprint, Thesis, Poster...).
+      // doi is just the number part, e.g. "10.1000/xyz123". url and pdf are optional.
+      publications: [
+        {
+          title: "Sample paper title goes here",
+          authors: ["Your Name", "Co-Author One", "Advisor Name"],
+          venue: "Journal of Example Studies, 12(3), 45-67",
+          year: 2026,
+          type: "Journal",
+          doi: "10.1000/xyz123",
+          url: "",
+          pdf: "",
+          abstract: ""
+        },
+        {
+          title: "Another sample paper presented at a conference",
+          authors: ["Co-Author One", "Your Name"],
+          venue: "Proceedings of the Example Conference",
+          year: 2025,
+          type: "Conference",
+          doi: "",
+          url: "https://example.com/paper",
+          pdf: "papers/example.pdf",
+          abstract: "Optional one or two sentence abstract shown under the citation."
+        },
+        {
+          title: "Title of your undergraduate thesis",
+          authors: ["Your Name"],
+          venue: "Your First University, Bachelor's thesis",
+          year: 2022,
+          type: "Thesis",
+          doi: "",
+          url: "",
+          pdf: "",
+          abstract: ""
+        }
+      ],
+ 
+      // Advisors, co-authors, labs. Use [] to hide.
+      collaborators: [
+        { name: "Dr. Advisor Name", role: "Doctoral advisor", url: "https://example.edu" },
+        { name: "Co-Author One", role: "Co-author", url: "" }
+      ]
+    };
+    /* ===================== end of edit zone ===================== */
+ 
+ 
+    const $ = (id) => document.getElementById(id);
+ 
+    function make(tag, props = {}, children = []) {
+      const node = document.createElement(tag);
+      for (const [key, value] of Object.entries(props)) {
+        if (key === "text") node.textContent = value;
+        else node.setAttribute(key, value);
+      }
+      children.forEach((child) => node.append(child));
+      return node;
+    }
+ 
+    const cleanUrl = (url) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+ 
+    /* ---- Identity ---- */
+    document.title = `${CARD.name} | ${CARD.title}`;
+    $("name").textContent = CARD.name;
+    $("role").append(CARD.title);
+    if (CARD.org) $("role").append(make("br"), make("span", { class: "org", text: CARD.org }));
+    $("bio").textContent = CARD.bio || "";
+    $("bio").hidden = !CARD.bio;
+ 
+    [
+      CARD.email && ["mailto:" + CARD.email, CARD.email],
+      CARD.phone && ["tel:" + CARD.phone.replace(/\s/g, ""), CARD.phone],
+      CARD.website && [CARD.website, cleanUrl(CARD.website)]
+    ].filter(Boolean).forEach(([href, label]) => {
+      $("contact").append(make("li", {}, [make("a", { href, text: label })]));
+    });
+ 
+    if (CARD.cv) {
+      $("cvLink").href = CARD.cv;
+      $("cvLink").hidden = false;
+    }
+ 
+    /* ---- Interests, education, links ---- */
+    if ((CARD.interests || []).length) {
+      $("interestsWrap").hidden = false;
+      CARD.interests.forEach((i) => $("interests").append(make("li", { text: i })));
+    }
+ 
+    if ((CARD.education || []).length) {
+      $("eduWrap").hidden = false;
+      CARD.education.forEach((e) => {
+        const item = make("li", {}, [
+          make("div", { class: "deg", text: e.degree }),
+          make("div", { class: "meta", text: [e.school, e.years].filter(Boolean).join(", ") })
+        ]);
+        if (e.note) item.append(make("div", { class: "meta", text: e.note }));
+        $("edu").append(item);
+      });
+    }
+ 
+    if ((CARD.links || []).length) {
+      $("linksWrap").hidden = false;
+      CARD.links.forEach((l) => {
+        $("links").append(make("li", {}, [
+          make("a", { href: l.url, target: "_blank", rel: "noopener", text: l.label })
+        ]));
+      });
+    }
+ 
+    /* ---- Publications with type filters ---- */
+    const pubs = CARD.publications || [];
+    const types = [...new Set(pubs.map((p) => p.type).filter(Boolean))];
+    let activeType = "All";
+ 
+    function citation(p) {
+      const parts = [
+        `${p.authors.join(", ")} (${p.year}). ${p.title}.`,
+        p.venue ? `${p.venue}.` : "",
+        p.doi ? `https://doi.org/${p.doi}` : (p.url || "")
+      ];
+      return parts.filter(Boolean).join(" ");
+    }
+ 
+    function renderAuthors(authors) {
+      const box = make("p", { class: "authors" });
+      authors.forEach((a, i) => {
+        box.append(a === CARD.name ? make("strong", { text: a }) : document.createTextNode(a));
+        if (i < authors.length - 1) box.append(", ");
+      });
+      return box;
+    }
+ 
+    function renderPubs() {
+      const list = $("pubs");
+      list.replaceChildren();
+      const shown = pubs.filter((p) => activeType === "All" || p.type === activeType);
+ 
+      if (!shown.length) {
+        list.append(make("li", { class: "empty", text: "No publications of this type yet." }));
+        return;
+      }
+ 
+      shown.forEach((p) => {
+        const href = p.doi ? `https://doi.org/${p.doi}` : p.url;
+        const title = make("h3", {}, [
+          href ? make("a", { href, target: "_blank", rel: "noopener", text: p.title }) : document.createTextNode(p.title)
+        ]);
+ 
+        const body = make("div", {}, [title, renderAuthors(p.authors || [])]);
+        if (p.venue) body.append(make("p", { class: "venue", text: p.venue }));
+        if (p.abstract) body.append(make("p", { class: "abstract", text: p.abstract }));
+ 
+        const meta = make("div", { class: "meta" });
+        if (p.type) meta.append(make("span", { class: "type", text: p.type }));
+        if (p.pdf) meta.append(make("a", { href: p.pdf, target: "_blank", rel: "noopener", text: "PDF" }));
+        const copy = make("button", { type: "button", text: "Copy citation" });
+        copy.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(citation(p));
+            copy.textContent = "Copied";
+          } catch (err) {
+            copy.textContent = "Copy failed";
+          }
+          setTimeout(() => (copy.textContent = "Copy citation"), 1800);
+        });
+        meta.append(copy);
+        body.append(meta);
+ 
+        const row = make("article", { class: "pub" }, [make("span", { class: "year", text: p.year || "" }), body]);
+        list.append(make("li", {}, [row]));
+      });
+    }
+ 
+    function renderFilters() {
+      const box = $("filters");
+      box.replaceChildren();
+      if (types.length < 2) return;
+      ["All", ...types].forEach((type) => {
+        const chip = make("button", { class: "chip", type: "button", "aria-pressed": String(type === activeType), text: type });
+        chip.addEventListener("click", () => {
+          activeType = type;
+          renderFilters();
+          renderPubs();
+        });
+        box.append(chip);
+      });
+    }
+    renderFilters();
+    renderPubs();
+ 
+    /* ---- Advisors and co-authors ---- */
+    const people = CARD.collaborators || [];
+    if (people.length) {
+      $("peopleWrap").hidden = false;
+      people.forEach((p) => {
+        const who = p.url
+          ? make("a", { class: "who", href: p.url, target: "_blank", rel: "noopener", text: p.name })
+          : make("span", { class: "who", text: p.name });
+        $("people").append(make("li", {}, [who, make("span", { class: "what", text: p.role || "" })]));
+      });
+    }
+ 
+    /* ---- Save contact (.vcf) ---- */
+    $("saveContact").addEventListener("click", () => {
+      const lines = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        `FN:${CARD.name}`,
+        CARD.org && `ORG:${CARD.org}`,
+        CARD.title && `TITLE:${CARD.title}`,
+        CARD.phone && `TEL;TYPE=CELL:${CARD.phone}`,
+        CARD.email && `EMAIL:${CARD.email}`,
+        CARD.website && `URL:${CARD.website}`,
+        "END:VCARD"
+      ].filter(Boolean);
+      const blob = new Blob([lines.join("\r\n")], { type: "text/vcard" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = CARD.name.toLowerCase().replace(/\s+/g, "-") + ".vcf";
+      document.body.append(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(link.href);
+    });
+ 
+    /* ---- Copy link ---- */
+    $("copyLink").addEventListener("click", async (event) => {
+      const button = event.currentTarget;
+      try {
+        await navigator.clipboard.writeText(location.href);
+        button.textContent = "Link copied";
+      } catch (err) {
+        button.textContent = "Copy failed";
+      }
+      setTimeout(() => (button.textContent = "Copy link"), 1800);
+    });
+ 
+    $("footer").textContent = `© ${new Date().getFullYear()} ${CARD.name}`;
+  </script>
 </body>
 </html>
+ 
+Claude finished the response
